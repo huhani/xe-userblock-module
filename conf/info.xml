@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="0.2">
+	<title xml:lang="ko">유저차단</title>
+	<description xml:lang="ko">불량유저의 활동을 차단합니다.</description>
+	<version>0.1.2</version>
+	<date>2016-08.27</date>
+	<category>utility</category>
+	<author email_address="mmia268@gmail.com" link="http://dnip.co.kr/">
+		<name xml:lang="ko">BGM STORAGE</name>
+	</author>
+</module>

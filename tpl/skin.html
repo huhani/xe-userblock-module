@@ -1,0 +1,39 @@
+<include target="_header.html" />
+
+<!--TODO-->
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == ''" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form method="post" class="x_form-horizontal">
+	<input type="hidden" name="module" value="userblock">
+	<input type="hidden" name="act" value="procUserblockAdminSkinConfig">
+
+	<section class="section">
+	<h1>{$lang->userblock_design}</h1>
+		<div class="x_control-group">
+			<label for="layout_srl" class="x_control-label">{$lang->layout}</label>
+			<div class="x_controls">
+				<select name="layout_srl" id="layout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$layout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$config->layout_srl == $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="x_control-group" style="display:none;">
+			<label for="mlayout_srl" class="x_control-label">{$lang->mobile_layout}</label>
+			<div class="x_controls">
+				<select name="mlayout_srl" id="mlayout_srl">
+					<option value="0">{$lang->notuse}</option>
+					<option loop="$mlayout_list => $key, $val" value="{$val->layout_srl}" selected="selected"|cond="$config->mlayout_srl == $val->layout_srl">{$val->title} ({$val->layout})</option>
+				</select>
+			</div>
+		</div>
+	<div class="x_clearfix btnArea">
+		<span class="x_pull-right"><input class="x_btn x_btn-primary" type="submit" value="{$lang->cmd_save}"></span>
+	</div>
+</form>
+
+</section>
+<include target="_bottom.html" />

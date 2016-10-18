@@ -1,0 +1,14 @@
+<query id="getBlockMemberView" action="select">
+	<tables>
+		<table name="userblock" />
+		<table name="userblock_log" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="userblock.target_member_srl" var="target_member_srl" />
+		<condition operation="equal" column="userblock_log.id" default="userblock.id" pipe="and" />
+		<condition operation="like_prefix" column="regdate" var="s_regdate" pipe="and" />
+	</conditions>
+</query>

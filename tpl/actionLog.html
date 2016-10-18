@@ -1,0 +1,157 @@
+<include target="_header.html" />
+
+<!--TODO-->
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == ''" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<table id="boardList" class="x_table x_table-striped x_table-hover">
+	<caption>
+			<!--@if($search_target !== 'action')-->
+			<strong>전체({number_format($total_count)})</strong>
+			<!--@else-->
+			<a href="<!--@if($module==='admin')-->{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminLog')}<!--@else-->{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminLog')}<!--@end-->">전체</a>
+			<!--@end-->
+
+			<i class="vr">|</i>
+
+			<!--@if($search_target === 'action' && $search_keyword ==='insertBlockUser')-->
+			<strong>추가({number_format($total_count)})</strong>
+			<!--@else-->
+			<a href="<!--@if($module==='admin')-->{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminLog', 'search_target', 'action', 'search_keyword', 'insertBlockUser')}<!--@else-->{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminLog', 'search_target', 'action', 'search_keyword', 'insertBlockUser')}<!--@end-->">추가</a>
+			<!--@end-->
+
+			<i class="vr">|</i>
+
+			<!--@if($search_target === 'action' && $search_keyword ==='updateBlockUser')-->
+			<strong>업데이트({number_format($total_count)})</strong>
+			<!--@else-->
+			<a href="<!--@if($module==='admin')-->{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminLog', 'search_target', 'action', 'search_keyword', 'updateBlockUser')}<!--@else-->{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminLog', 'search_target', 'action', 'search_keyword', 'updateBlockUser')}<!--@end-->">업데이트</a>
+			<!--@end-->
+
+			<i class="vr">|</i>
+
+			<!--@if($search_target === 'action' && $search_keyword ==='deleteBlockUser')-->
+			<strong>삭제({number_format($total_count)})</strong>
+			<!--@else-->
+			<a href="<!--@if($module==='admin')-->{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminLog', 'search_target', 'action', 'search_keyword', 'deleteBlockUser')}<!--@else-->{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminLog', 'search_target', 'action', 'search_keyword', 'deleteBlockUser')}<!--@end-->">삭제</a>
+			<!--@end-->
+	</caption>
+	<thead>
+		<tr>
+			<th scope="col">{$lang->no}</th>
+			<th scope="col">{$lang->category}</th>
+			<th scope="col">{$lang->nick_name}</th>
+			<th scope="col">{$lang->cmd_comment}</th>
+			<th scope="col">{$lang->cmd_ipban_status}</th>
+			<th scope="col">{$lang->cmd_expdate}</th>
+			<th scope="col">{$lang->regdate}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr loop="$list => $no,$val">
+			<td>{$no}</td>
+			<td><!--@if($val->action == "insertBlockUser")-->{$lang->cmd_add}<!--@else if($val->action == "deleteBlockUser")-->{$lang->cmd_delete}<!--@else if($val->action == "updateBlockUser")-->{$lang->cmd_update}<!--@else-->{$lang->userblock_other}<!--@end--></a></td>
+			<td><span><a href="#popup_menu_area" class="member_{$val->target_member_srl}" onclick="return false">{$val->target_nick_name}<!--@if($val->target_member_srl === 0)-->(비회원)<!--@end--></a></span></td>
+			<td>{cut_str($val->comment, 50)}</td>
+			<td><!--@if($val->action == "insertBlockUser" || $val->action == "updateBlockUser")--><!--@if($val->use_ipban == "Y")-->Y<!--@else-->N<!--@end--><!--@end--></td>
+			<td>{zdate($val->expdate,"Y-m-d H:i")} <!--@if($val->action == "insertBlockUser" || $val->action =="updateBlockUser")-->
+<!--@if($date < $val->expdate)--><!--@else if(!$val->expdate)-->(무기한 차단)<!--@else-->(만료)<!--@end--><!--@end--></td>
+			<td>{zdate($val->regdate,"Y-m-d H:i")}</td>
+		</tr>
+		<tr cond="!$list">
+			<td>{$lang->cmd_blocklist_not_exist}</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="x_clearfix">
+	<form cond="$page_navigation" action="./" class="x_pagination x_pull-left" no-error-return-url="true" style="margin-top:0">
+		{@
+			$urlInfo = parse_url(getRequestUriByServerEnviroment());
+			parse_str($urlInfo['query'], $param);
+		}
+		<input loop="$param => $key, $val" cond="!in_array($key, array('mid', 'vid', 'act'))" type="hidden" name="{$key}" value="{$val}" />
+		<ul>
+			<li class="x_disabled"|cond="!$page || $page == 1"><a href="{getUrl('page', '')}">&laquo; {$lang->first_page}</a></li>
+			<block cond="$page_navigation->first_page != 1 && $page_navigation->first_page + $page_navigation->page_count > $page_navigation->last_page - 1 && $page_navigation->page_count != $page_navigation->total_page">
+			{@$isGoTo = true}
+			<li>
+				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+			</li>
+			</block>
+			<!--@while($page_no = $page_navigation->getNextPage())-->
+			{@$last_page = $page_no}
+			<li class="x_active"|cond="$page_no == $page"><a  href="{getUrl('page', $page_no)}">{$page_no}</a></li>
+			<!--@end-->
+			<block cond="$last_page != $page_navigation->last_page && $last_page + 1 != $page_navigation->last_page">
+			{@$isGoTo = true}
+			<li>
+				<a href="#goTo" data-toggle title="{$lang->cmd_go_to_page}">&hellip;</a>
+				<span cond="$isGoTo" id="goTo" class="x_input-append">
+					<input type="number" min="1" max="{$page_navigation->last_page}" required name="page" title="{$lang->cmd_go_to_page}" />
+					<button type="submit" class="x_add-on">Go</button>
+				</span>
+			</li>
+			</block>
+			<li class="x_disabled"|cond="$page == $page_navigation->last_page"><a href="{getUrl('page', $page_navigation->last_page)}" title="{$page_navigation->last_page}">{$lang->last_page} &raquo;</a></li>
+		</ul>
+	</form>
+		<div class="x_pull-right">
+			<a href="javascript:;" onclick="logArrange();" class="x_btn">기록 정리</a>
+		</div>
+<BR>
+	<form action="./" method="get" class="search center x_input-append x_clearfix">
+	<!--@if($module === "admin")-->
+		<input type="hidden" name="module" value="admin">
+		<input type="hidden" name="mid" value="">
+	<!--@else-->
+		<input type="hidden" name="module" value="userblock">
+		<input type="hidden" name="mid" value="userblock">
+	<!--@end-->
+		<input type="hidden" name="act" value="dispUserblockAdminLog">
+		<input type="hidden" name="error_return_url" value="">
+		<select name="search_target" title="검색대상" style="margin-right:4px">
+			<option value="target_nick_name">닉네임</option>
+			<option value="target_member_srl">회원 번호</option>
+			<option value="nick_name">차단 운영진 닉네임</option>
+			<option value="member_srl">차단 운영진 회원 번호</option>
+			<option value="target_srl">타겟 번호</option>
+			<option value="regdate">등록일</option>
+			<option value="expdate">만료일</option>
+			<option value="comment">차단사유</option>
+		</select>
+		<input type="search" name="search_keyword" value="" title="검색">
+		<button type="submit" class="x_btn x_btn-inverse">검색</button>
+		<a href="<!--@if($module === "admin")-->{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminLog')}<!--@else-->{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminLog')}<!--@end-->" class="x_btn">취소</a>
+	</form>
+</div>
+
+
+<script>
+
+	function deleteMember(member_srl){
+		jQuery.exec_json("userblock.procUserblockAdminBanDelete", {member_srl: member_srl, mid: 'userblock'}, function(obj_req){
+
+			alert(obj_req.message === "success" ? "삭제하였습니다" : obj_req.message);
+			window.location.reload(true);
+		});
+
+	}
+
+	function logArrange(){
+		var msg = confirm('기간이 만료된 기록을 삭제합니다.');
+		msg && jQuery.exec_json("userblock.procUserblockAdminArrangeLog", {mid: 'userblock'}, function(obj_req){
+
+			alert(obj_req.message === "success" ? "정리하였습니다" : obj_req.message);
+			window.location.reload(true);
+		});
+
+	}
+
+</script>
+<include target="_bottom.html" />

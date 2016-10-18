@@ -1,0 +1,15 @@
+<query id="getMemberCheckBan" action="select">
+	<tables>
+		<table name="userblock" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="target_member_srl" var="target_member_srl" />
+        <group pipe="and">
+				<condition operation="null" column="expdate" pipe="or" />
+				<condition operation="excess" column="expdate" var="expdate" pipe="or" />
+        </group>
+	</conditions>
+</query>

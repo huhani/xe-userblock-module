@@ -1,0 +1,21 @@
+<query id="updateMemberBanIP" action="update">
+    <tables>
+        <table name="userblock_log" />
+    </tables>
+	<columns>
+		<column name="use_ipban" var="use_ipban" />
+		<column name="action" var="action" />
+	</columns>
+    <conditions>
+			<condition operation="equal" column="use_ipban" default="Y" />
+			<group pipe="and">
+				<condition operation="null" column="expdate" pipe="or" />
+				<condition operation="excess" column="expdate" var="expdate" pipe="or" />
+			</group>
+			<group pipe="and">
+				<condition operation="equal" column="id" var="id" pipe="or" />
+				<condition operation="equal" column="target_ipaddress" var="target_ipaddress" pipe="or" />
+				<condition operation="equal" column="target_member_srl" var="target_member_srl" pipe="or" />
+			</group>
+    </conditions>
+</query>

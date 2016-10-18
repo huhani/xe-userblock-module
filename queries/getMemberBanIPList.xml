@@ -1,0 +1,29 @@
+<query id="getMemberBanIPList" action="select">
+	<tables>
+		<table name="userblock_log" />
+	</tables>
+	<columns>
+		<column name="*" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="use_ipban" default="Y" />
+		<group pipe="and">
+			<condition operation="null" column="expdate" pipe="or" />
+			<condition operation="excess" column="expdate" var="expdate" pipe="or" />
+		</group>
+		<group pipe="and">
+			<condition operation="like" column="target_nick_name" var="s_target_nick_name" />
+			<condition operation="equal" column="target_member_srl" var="s_target_member_srl" pipe="or" />
+			<condition operation="like" column="target_ipaddress" var="s_target_ipaddress" pipe="or" />
+			<condition operation="like_prefix" column="regdate" var="s_regdate" pipe="or" />
+			<condition operation="like_prefix" column="expdate" var="s_expdate" pipe="or" />
+	      <condition operation="like" column="comment" var="s_comment" pipe="or" />
+		</group>
+	</conditions>
+	<navigation>
+		<index var="sort_index" default="order" order="order_type" />
+		<list_count var="list_count" default="20" />
+		<page_count var="page_count" default="10" />
+		<page var="page" default="1" />
+	</navigation>
+</query>

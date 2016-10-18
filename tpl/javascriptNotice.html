@@ -1,0 +1,68 @@
+<script>
+{@
+	$msg = str_replace("\r", '\\n', $msg);
+	$msg = str_replace("\n", "", $msg);
+	$msg = str_replace("\"", "\\\"", $msg);
+	$msg = str_replace("&quot;", "\\\"", $msg);
+	$msg = str_replace("&#039;", "\\'", $msg);
+	$msg = str_replace("&lt;", "<", $msg);
+	$msg = str_replace("&gt;", ">", $msg);
+}
+(function($){
+	var msg = "{$msg}";
+
+	$(document).on("click","a[href*=dispBoardWrite]",function(e){
+		var url = $(this).attr('href');
+		if(url.getQuery('act') === 'dispBoardWrite'){
+			<!--@if($config->doc_modify === "Y")-->
+			if(url.getQuery('document_srl')) return alert(msg), false;
+			<!--@end-->
+			<!--@if($config->doc_write === "Y")-->
+			return alert(msg), false;
+			<!--@end-->
+		}
+
+		if(url.getQuery('act') === 'dispBoardWriteComment'){
+			<!--@if($config->cmt_write === "Y")-->
+			return alert(msg), false;
+			<!--@end-->
+		}
+
+		return true;
+	});
+
+	<!--@if($config->cmt_write === "Y")-->
+	$(document).on("mousedown","a[href*=dispBoardReplyComment]",function(e){
+		return alert(msg), false;
+	});
+	<!--@end-->
+
+	$(document).on("click","a[href*=dispBoardDelete]",function(e){
+		var url = $(this).attr('href');
+		<!--@if($config->doc_delete === "Y")-->	
+		if(url.getQuery('act') === 'dispBoardDelete') return alert(msg), false;
+		<!--@end-->
+
+		<!--@if($config->cmt_delete === "Y")-->	
+		if(url.getQuery('act') === 'dispBoardDeleteComment') return alert(msg), false;
+		<!--@end-->
+
+		return true;
+	});
+
+	<!--@if($config->cmt_modify === "Y")-->
+	$(document).on("mousedown","a[href*=dispBoardModifyComment]",function(e){
+		return alert(msg), false;
+	});
+	<!--@end-->
+
+	<!--@if($config->file_download === "Y")-->
+	$(document).on("click","a[href*=procFileDownload]",function(e){
+		return alert(msg), false;
+	});
+	<!--@end-->
+
+
+})(jQuery);
+
+</script>

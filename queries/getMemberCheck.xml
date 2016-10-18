@@ -1,0 +1,11 @@
+<query id="getMemberCheck" action="select">
+	<tables>
+		<table name="userblock" />
+	</tables>
+	<columns>
+      <column name="count(*)" alias="count" />
+	</columns>
+	<conditions>
+		<condition operation="equal" column="target_member_srl" var="target_member_srl" />
+	</conditions>
+</query>

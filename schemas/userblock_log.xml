@@ -1,0 +1,23 @@
+<table name="userblock_log">
+	<column name="id" type="number" notnull="notnull" primary_key="primary_key" auto_increment="auto_increment" />
+
+	<column name="member_srl" type="number" size="11" notnull="notnull" />
+	<column name="nick_name" type="varchar" size="25" notnull="notnull" />
+   <column name="ipaddress" type="varchar" size="128" notnull="notnull" />
+	<column name="action" type="varchar" size="40" notnull="notnull" />
+
+	<column name="target_member_srl" type="number" size="11" notnull="notnull" index="idx_target_member_srl" />
+	<column name="target_nick_name" type="varchar" size="25" />
+   <column name="target_ipaddress" type="varchar" size="128" index="idx_target_ipaddress" />
+	<column name="target_srl" type="number" notnull="notnull" size="11" />
+
+	<column name="day" type="number" size="4" />
+	<column name="hour" type="number" size="2" />
+	<column name="type" type="char" size="1" notnull="notnull" />
+
+	<column name="use_ipban" type="char" size="1" notnull="notnull" />
+
+	<column name="expdate" type="date" index="idx_expdate" />
+	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
+	<column name="comment" type="text" />
+</table>

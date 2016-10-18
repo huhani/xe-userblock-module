@@ -1,0 +1,8 @@
+<query id="deleteBlockMember" action="delete">
+	<tables>
+		<table name="userblock" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="target_member_srl" var="target_member_srl" />
+	</conditions>
+</query>

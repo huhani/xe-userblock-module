@@ -1,0 +1,16 @@
+<query id="deleteExpdateLog" action="delete">
+	<tables>
+		<table name="userblock_log" />
+	</tables>
+	<conditions>
+		<condition operation="equal" column="action" default="deleteBlockUser" />
+		<group pipe="or">
+			<condition operation="notnull" column="expdate" pipe="and" />
+			<condition operation="below" column="expdate" var="expdate" pipe="and" />
+		</group>
+		<group pipe="or">
+			<condition operation="equal" column="target_member_srl" default="0" pipe="and" />
+			<condition operation="equal" column="use_ipban" default="N" pipe="and" />
+		</group>
+	</conditions>
+</query>

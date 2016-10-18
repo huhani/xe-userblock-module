@@ -1,0 +1,64 @@
+<div class="userblock"|cond="$is_admin_page === true" class="x"|cond="$is_admin_page === false">
+
+<div class="x_page-header">
+	<h1>
+		{$lang->userblock}
+	</h1>
+</div>
+
+<ul class="x_nav x_nav-tabs">
+	<li class="x_active"|cond="$act == null || $act == 'dispUserblockAdminList' || $act === 'dispUserblockAdminMemberView'">
+		<!--@if($is_admin_page)-->
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminList')}">
+		<!--@else-->
+		<a href="{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminList')}">
+		<!--@end-->{$lang->cmd_blocklist}</a>
+	</li>
+	<li class="x_active" cond="$act == 'dispUserblockAdminIPList'">
+		<!--@if($is_admin_page)-->
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminIPList')}">
+		<!--@else-->
+		<a href="{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminIPList')}">
+		<!--@end-->{$lang->cmd_ban_ip}</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispUserblockAdminLog'" style="display:none;">
+		<!--@if($is_admin_page)-->
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminLog')}">
+		<!--@else-->
+		<a href="{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminLog')}">
+		<!--@end-->
+		{$lang->cmd_log}(debug)</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispUserblockAdminContent' || $act == 'dispUserblockAdminMidConfig'">
+		<!--@if($is_admin_page)-->
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminContent')}">
+		<!--@else-->
+		<a href="{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminContent')}">
+		<!--@end-->
+		{$lang->userblock_board}</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispUserblockAdminConfig'">
+		<!--@if($is_admin_page)-->
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminConfig')}">
+		<!--@else-->
+		<a href="{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminConfig')}">
+		<!--@end-->
+		{$lang->userblock_config}</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispUserblockAdminGrantInfo'">
+		<!--@if($is_admin_page)-->
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminGrantInfo')}">
+		<!--@else-->
+		<a href="{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminGrantInfo')}">
+		<!--@end-->
+		{$lang->userblock_grant_info}</a>
+	</li>
+	<li class="x_active"|cond="$act == 'dispUserblockAdminSkin'">
+		<!--@if($is_admin_page)-->
+		<a href="{getUrl('', 'module', 'admin', 'act', 'dispUserblockAdminSkin')}">
+		<!--@else-->
+		<a href="{getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminSkin')}">
+		<!--@end-->
+		{$lang->userblock_design}</a>
+	</li>
+</ul>

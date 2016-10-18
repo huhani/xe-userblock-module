@@ -1,0 +1,14 @@
+<table name="userblock">
+	<column name="member_srl" type="number" size="11" notnull="notnull" />
+	<column name="nick_name" type="varchar" size="25" notnull="notnull" />
+	<column name="id" type="number" size="11" notnull="notnull" breif="차단 고유ID"  />
+	<column name="target_member_srl" type="number" size="11" notnull="notnull" primary_key="primary_key" index="idx_target_member_srl" />
+	<column name="target_nick_name" type="varchar" size="25" notnull="notnull" />
+	<column name="target_srl" type="number" size="11" notnull="notnull" />
+	<column name="type" type="char" size="1" notnull="notnull" breif="0 target_srl 없음, 1 문서,  2 댓글"  />
+	<column name="day" type="number" size="4" />
+	<column name="hour" type="number" size="2" />
+	<column name="expdate" type="date" index="idx_expdate" />
+	<column name="regdate" type="date" notnull="notnull" index="idx_regdate" />
+	<column name="comment" type="text" />
+</table>

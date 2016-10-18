@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<grants />
+	<permissions>
+	</permissions>
+	<actions>
+		<action name="getUserblockList" type="model" />
+
+		<action name="dispUserblockMemberRedirect" type="view" />
+
+		<action name="dispUserblockAdminList" type="view" index="true" admin_index="true" />
+		<action name="dispUserblockAdminIPList" type="view" />
+		<action name="dispUserblockAdminContent" type="view" />
+		<action name="dispUserblockAdminMidConfig" type="view" />
+		<action name="dispUserblockAdminConfig" type="view" />
+		<action name="dispUserblockAdminGrantInfo" type="view" />
+		<action name="dispUserblockAdminSkin" type="view" />
+		<action name="dispUserblockAdminPopup" type="view" />
+
+		<action name="dispUserblockAdminCommentPopup" type="view" />
+		<action name="dispUserblockAdminDocumentPopup" type="view" />
+		<action name="dispUserblockAdminFilePopup" type="view" />
+
+		<action name="dispUserblockAdminMemberView" type="view" />
+		<action name="dispUserblockAdminLog" type="view" />
+
+		<action name="procUserblockAdminBanComment" type="controller" />
+		<action name="procUserblockAdminBanDocument" type="controller" />
+
+		<action name="procUserblockAdminConfig" type="controller" />
+		<action name="procUserblockAdminMidConfig" type="controller" />
+		<action name="procUserblockAdminSkinConfig" type="controller" />
+		<action name="procUserblockAdminMidReset" type="controller" />
+
+		<action name="procUserblockAdminBanMember" type="controller" />
+		<action name="procUserblockAdminBanDelete" type="controller" />
+		<action name="procUserblockAdminBanDeleteIP" type="controller" />
+		<action name="procUserblockAdminArrangeLog" type="controller" />
+
+	</actions>
+	<menus>
+		<menu name="userblock" type="all">
+			<title xml:lang="ko">유저  차단</title>
+		</menu>
+	</menus>
+</module>

@@ -1,0 +1,22 @@
+<query id="updateMemberBanInfo" action="update">
+    <tables>
+        <table name="userblock" />
+    </tables>
+	<columns>
+		<column name="member_srl" var="member_srl" />
+		<column name="nick_name" var="nick_name" />
+		<column name="id" var="id" />
+		<column name="target_member_srl" var="target_member_srl" />
+		<column name="target_nick_name" var="target_nick_name" />
+		<column name="target_srl" var="target_srl" />
+		<column name="type" var="type" />
+		<column name="day" var="day" />
+		<column name="hour" var="hour" />
+		<column name="expdate" default="" var="expdate" />
+		<column name="regdate" var="regdate" />
+		<column name="comment" var="comment" />
+	</columns>
+    <conditions>
+			<condition operation="equal" column="target_member_srl" var="target_member_srl" />
+    </conditions>
+</query>

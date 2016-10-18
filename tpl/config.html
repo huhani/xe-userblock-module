@@ -1,0 +1,328 @@
+<include target="_header.html" />
+
+<!--TODO-->
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == ''" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+<form method="post" class="x_form-horizontal">
+	<input type="hidden" name="module" value="userblock">
+	<input type="hidden" name="act" value="procUserblockAdminConfig">
+	<input type="hidden" name="success_return_url" value="{getUrl('', 'module', $is_admin_page ? 'admin' : 'userblock', 'act', 'dispUserblockAdminConfig')}">
+
+	<section class="section">
+	<h1>{$lang->all}<button type="button" class="snToggle x_icon-chevron-up">Toggle this section</button></h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_use_module}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_use">
+				<input type="radio" id="ban_use" name="use" value="Y" checked="checked"|cond="$config->use == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_not_use">
+				<input type="radio" id="ban_not_use" name="use" value="N" checked="checked"|cond="$config->use == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#use_module_all_help" class="x_icon-question-sign" data-toggle="#use_module_all_help">{$lang->help}</a>
+				<p id="use_module_all_help" class="x_help-block" hidden="hidden">{$lang->cmd_use_module_all_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_priority}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_ip_priority_use">
+				<input type="radio" id="ban_ip_priority_use" name="ip_priority" value="Y" checked="checked"|cond="$config->ip_priority == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_ip_priority_not_use">
+				<input type="radio" id="ban_ip_priority_not_use" name="ip_priority" value="N" checked="checked"|cond="$config->ip_priority == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_priority_help" class="x_icon-question-sign" data-toggle="#ban_priority_help">{$lang->help}</a>
+				<p id="ban_priority_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_priority_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group" style="display:none;">
+			<label class="x_control-label">{$lang->cmd_ban_member_auto}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_member_auto_use">
+				<input type="radio" id="ban_member_auto_use" name="member_auto" value="Y" checked="checked"|cond="$config->member_auto == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_member_auto_not_use">
+				<input type="radio" id="ban_member_auto_not_use" name="member_auto" value="N" checked="checked"|cond="$config->member_auto == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_member_auto_help" class="x_icon-question-sign" data-toggle="#ban_member_auto_help">{$lang->help}</a>
+				<p id="ban_member_auto_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_member_auto_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_sign_up}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_sign_up_use">
+				<input type="radio" id="ban_sign_up_use" name="member_sign_up" value="Y" checked="checked"|cond="$config->member_sign_up == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_sign_up_not_use">
+				<input type="radio" id="ban_sign_up_not_use" name="member_sign_up" value="N" checked="checked"|cond="$config->member_sign_up == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_sign_up_help" class="x_icon-question-sign" data-toggle="#ban_sign_up_help">{$lang->help}</a>
+				<p id="ban_sign_up_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_sign_up_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_member_delete}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_member_delete_use">
+				<input type="radio" id="ban_member_delete_use" name="member_delete" value="Y" checked="checked"|cond="$config->member_delete == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_member_delete_not_use">
+				<input type="radio" id="ban_member_delete_not_use" name="member_delete" value="N" checked="checked"|cond="$config->member_delete == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_member_delete_help" class="x_icon-question-sign" data-toggle="#ban_member_delete_help">{$lang->help}</a>
+				<p id="ban_member_delete_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_member_delete_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_use_javascript}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_use_javascript_use">
+				<input type="radio" id="ban_use_javascript_use" name="use_javascript" value="Y" checked="checked"|cond="$config->use_javascript == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_use_javascript_not_use">
+				<input type="radio" id="ban_use_javascript_not_use" name="use_javascript" value="N" checked="checked"|cond="$config->use_javascript == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_use_javascript_help" class="x_icon-question-sign" data-toggle="#ban_use_javascript_help">{$lang->help}</a>
+				<p id="ban_use_javascript_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_use_javascript_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_member_time}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_time_day">
+				<input type="number" value="{$config->ban_day}" name="ban_day" id="ban_time_day"> {$lang->cmd_ban_day}</label>
+
+				<label class="x_inline" for="ban_time_hour">
+				<input type="number" value="{$config->ban_hour}" name="ban_hour" id="ban_time_hour"> {$lang->cmd_ban_hour}</label>
+				<a href="#ban_member_time_help" class="x_icon-question-sign" data-toggle="#ban_member_time_help">{$lang->help}</a>
+				<p id="ban_member_time_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_member_time_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label for="ban_notice" class="x_control-label">{$lang->cmd_ban_notice}</label>
+			<div class="x_controls">
+				<textarea name="ban_notice" id="ban_notice" rows="4" cols="50" placeholder="500자 이내의 차단사유 형식을 입력해주세요." style="width: 45%;">{$config->ban_notice}</textarea>
+
+				<a href="#ban_notice_help" class="x_icon-question-sign" data-toggle="#ban_notice_help">{$lang->help}</a>
+				<p id="ban_notice_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_notice_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label for="trash_reason" class="x_control-label">{$lang->cmd_trash_reason}</label>
+			<div class="x_controls">
+				<input type="text" name="trash_reason" id="trash_reason" value="{$config->trash_reason}">
+				<a href="#trash_reason_help" class="x_icon-question-sign" data-toggle="#trash_reason_help">{$lang->help}</a>
+				<p id="trash_reason_help" class="x_help-block" hidden="hidden">{$lang->cmd_trash_reason_help}</p>
+			</div>
+		</div>
+
+		<div class="x_control-group">
+			<label for="ban_notice" class="x_control-label">DB정리</label>
+			<div class="x_controls">
+				<a href="javascript:;" onclick="logArrange();" class="x_btn">정리</a>
+				<a href="#ban_log_arrange_help" class="x_icon-question-sign" data-toggle="#ban_log_arrange_help">{$lang->help}</a>
+				<p id="ban_log_arrange_help" class="x_help-block" hidden="hidden">불필요한 데이터를 제거합니다</p>
+			</div>
+		</div>
+
+	</section>
+
+	<section class="section" style="display:none;">
+	<h1>{$lang->subtitle_primary}<button type="button" class="snToggle x_icon-chevron-up">Toggle this section</button></h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_use_module}</label>
+			<div class="x_controls">
+				<label class="x_inline" for="ban_use_module_use">
+				<input type="radio" id="ban_use_module_use" name="use_module" value="Y" checked="checked"|cond="$config->default->use_module == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_use_module_not_use">
+				<input type="radio" id="ban_use_module_not_use" name="use_module" value="N" checked="checked"|cond="$config->default->use_module == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#use_module_help" class="x_icon-question-sign" data-toggle="#use_module_help">{$lang->help}</a>
+				<p id="use_module_help" class="x_help-block" hidden="hidden">{$lang->cmd_use_module_help}</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<h1>{$lang->userblock_doc}<button type="button" class="snToggle x_icon-chevron-up">Toggle this section</button></h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_doc_write}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_doc_write_use">
+				<input type="radio" id="ban_doc_write_use" name="doc_write" value="Y" checked="checked"|cond="$config->default->doc_write == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_doc_write_not_use">
+				<input type="radio" id="ban_doc_write_not_use" name="doc_write" value="N" checked="checked"|cond="$config->default->doc_write == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_doc_write_help" class="x_icon-question-sign" data-toggle="#ban_doc_write_help">{$lang->help}</a>
+				<p id="ban_doc_write_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_doc_write_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_doc_modify}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_doc_modify_use">
+				<input type="radio" id="ban_doc_modify_use" name="doc_modify" value="Y" checked="checked"|cond="$config->default->doc_modify == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_doc_modify_not_use">
+				<input type="radio" id="ban_doc_modify_not_use" name="doc_modify" value="N" checked="checked"|cond="$config->default->doc_modify == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_doc_modify_help" class="x_icon-question-sign" data-toggle="#ban_doc_modify_help">{$lang->help}</a>
+				<p id="ban_doc_modify_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_doc_modify_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_doc_delete}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_doc_delete_use">
+				<input type="radio" id="ban_doc_delete_use" name="doc_delete" value="Y" checked="checked"|cond="$config->default->doc_delete == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_doc_delete_not_use">
+				<input type="radio" id="ban_doc_delete_not_use" name="doc_delete" value="N" checked="checked"|cond="$config->default->doc_delete == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_doc_delete_help" class="x_icon-question-sign" data-toggle="#ban_doc_delete_help">{$lang->help}</a>
+				<p id="ban_doc_delete_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_doc_delete_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_doc_voteup}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_doc_voteup_use">
+				<input type="radio" id="ban_doc_voteup_use" name="doc_voteup" value="Y" checked="checked"|cond="$config->default->doc_voteup == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_doc_voteup_not_use">
+				<input type="radio" id="ban_doc_voteup_not_use" name="doc_voteup" value="N" checked="checked"|cond="$config->default->doc_voteup == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_doc_voteup_help" class="x_icon-question-sign" data-toggle="#ban_doc_voteup_help">{$lang->help}</a>
+				<p id="ban_doc_voteup_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_doc_voteup_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_doc_votedown}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_doc_votedown_use">
+				<input type="radio" id="ban_doc_votedown_use" name="doc_votedown" value="Y" checked="checked"|cond="$config->default->doc_votedown == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_doc_votedown_not_use">
+				<input type="radio" id="ban_doc_votedown_not_use" name="doc_votedown" value="N" checked="checked"|cond="$config->default->doc_votedown == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_doc_votedown_help" class="x_icon-question-sign" data-toggle="#ban_doc_votedown_help">{$lang->help}</a>
+				<p id="ban_doc_votedown_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_doc_votedown_help}</p>
+			</div>
+		</div>
+
+	</section>
+
+	<section class="section">
+		<h1>{$lang->userblock_cmt}<button type="button" class="snToggle x_icon-chevron-up">Toggle this section</button></h1>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_cmt_write}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_cmt_write_use">
+				<input type="radio" id="ban_cmt_write_use" name="cmt_write" value="Y" checked="checked"|cond="$config->default->cmt_write == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_cmt_write_not_use">
+				<input type="radio" id="ban_cmt_write_not_use" name="cmt_write" value="N" checked="checked"|cond="$config->default->cmt_write == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_cmt_write_help" class="x_icon-question-sign" data-toggle="#ban_cmt_write_help">{$lang->help}</a>
+				<p id="ban_cmt_write_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_cmt_write_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_cmt_modify}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_cmt_modify_use">
+				<input type="radio" id="ban_cmt_modify_use" name="cmt_modify" value="Y" checked="checked"|cond="$config->default->cmt_modify == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_cmt_modify_not_use">
+				<input type="radio" id="ban_cmt_modify_not_use" name="cmt_modify" value="N" checked="checked"|cond="$config->default->cmt_modify == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_cmt_modify_help" class="x_icon-question-sign" data-toggle="#ban_cmt_modify_help">{$lang->help}</a>
+				<p id="ban_cmt_modify_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_cmt_modify_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_cmt_delete}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_cmt_delete_use">
+				<input type="radio" id="ban_cmt_delete_use" name="cmt_delete" value="Y" checked="checked"|cond="$config->default->cmt_delete == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_cmt_delete_not_use">
+				<input type="radio" id="ban_cmt_delete_not_use" name="cmt_delete" value="N" checked="checked"|cond="$config->default->cmt_delete == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_cmt_delete_help" class="x_icon-question-sign" data-toggle="#ban_cmt_delete_help">{$lang->help}</a>
+				<p id="ban_cmt_delete_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_cmt_delete_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_cmt_voteup}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_cmt_voteup_use">
+				<input type="radio" id="ban_cmt_voteup_use" name="cmt_voteup" value="Y" checked="checked"|cond="$config->default->cmt_voteup == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_cmt_voteup_not_use">
+				<input type="radio" id="ban_cmt_voteup_not_use" name="cmt_voteup" value="N" checked="checked"|cond="$config->default->cmt_voteup == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_cmt_voteup_help" class="x_icon-question-sign" data-toggle="#ban_cmt_voteup_help">{$lang->help}</a>
+				<p id="ban_cmt_voteup_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_cmt_voteup_help}</p>
+			</div>
+		</div>
+		<div class="x_control-group">
+			<label class="x_control-label">{$lang->cmd_ban_cmt_votedown}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_cmt_votedown_use">
+				<input type="radio" id="ban_cmt_votedown_use" name="cmt_votedown" value="Y" checked="checked"|cond="$config->default->cmt_votedown == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_cmt_votedown_not_use">
+				<input type="radio" id="ban_cmt_votedown_not_use" name="cmt_votedown" value="N" checked="checked"|cond="$config->default->cmt_votedown == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_cmt_votedown_help" class="x_icon-question-sign" data-toggle="#ban_cmt_votedown_help">{$lang->help}</a>
+				<p id="ban_cmt_votedown_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_cmt_votedown_help}</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<h1>{$lang->cmd_file}<button type="button" class="snToggle x_icon-chevron-up">Toggle this section</button></h1>
+			<label class="x_control-label">{$lang->cmd_ban_file_download}</label>
+				<div class="x_controls">
+				<label class="x_inline" for="ban_file_download_use">
+				<input type="radio" id="ban_file_download_use" name="file_download" value="Y" checked="checked"|cond="$config->default->file_download == 'Y'">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_file_download_not_use">
+				<input type="radio" id="ban_file_download_not_use" name="file_download" value="N" checked="checked"|cond="$config->default->file_download == 'N'">{$lang->userblock_not_use}</label>
+				<a href="#ban_file_download_help" class="x_icon-question-sign" data-toggle="#ban_file_download_help">{$lang->help}</a>
+				<p id="ban_file_download_help" class="x_help-block" hidden="hidden">{$lang->cmd_ban_file_download_help}</p>
+			</div>
+	</section>
+
+	<div class="x_clearfix btnArea">
+		<span class="x_pull-right"><input class="x_btn x_btn-primary" type="submit" value="{$lang->cmd_save}"></span>
+	</div>
+</form>
+
+<script>
+jQuery(function($){
+
+	$(document).on("click",".x_clearfix.btnArea>.x_pull-right>input",function(e){
+		var day = $('#ban_time_day').val();
+		var hour = $('#ban_time_hour').val();
+		if(day){
+			if(!day.match(/^\d+$/)) return alert('차단시간 설정값 형식이 올바르지 않습니다.'), false;
+			if(day > 9999) return alert('차단일 값이 너무 큽니다.'), false;
+		}
+		if(hour){
+			if(!hour.match(/^\d+$/)) return alert('차단시간 설정값 형식이 올바르지 않습니다.'), false;
+			if(hour > 24) return alert('차단시간 값을 24 이하로 설정하여주세요.'), false;
+		}
+
+	});
+
+});
+
+	function logArrange(){
+		jQuery.exec_json("userblock.procUserblockAdminArrangeLog", {mid: 'userblock'}, function(obj_req){
+
+			alert(obj_req.message === "success" ? "정리하였습니다" : obj_req.message);
+			window.location.reload(true);
+		});
+
+	}
+</script>
+<include target="_bottom.html" />

@@ -1,0 +1,64 @@
+<!--// HEADER -->
+<include target="_header.html" />
+<h2>차단한 운영진</h2>
+<table class="x_table x_table-striped x_table-hover">
+<colgroup><col width="120">
+</colgroup><tbody><tr>
+<th scope="col" class="nowr">닉네임</th>
+<td><a href="#popup_menu_area" class="member_{$data->member_srl}" onclick="return false">{$data->nick_name}</a>
+</td>
+</tr>
+<tr>
+	<th scope="col" class="nowr">차단 날짜</th>
+	<td>{zdate($data->regdate, 'Y-m-d H:i:s')}</td>
+</tr>
+<tr>
+	<th scope="col" class="nowr">IP 주소</th>
+	<td>{$data->ipaddress}</td>
+</tr>
+<tr>
+	<th scope="col" class="nowr">차단 유형</th>
+	<td><!--@if($data->type === '0')-->{$lang->userblock_other}<!--@else if($data->type === '1')-->{$lang->cmd_doc_write}<!--@else if($data->type === '2')-->{$lang->cmd_cmt_write}<!--@else if($data->type === '3')-->{$lang->cmd_doc_voteup}<!--@else if($data->type === '4')-->{$lang->cmd_doc_votedown}<!--@else if($data->type === '5')-->{$lang->cmd_file_attach}<!--@else-->{$lang->cmd_exception}<!--@end--></td>
+</tr>
+</tbody>
+</table>
+<BR>
+
+<h2>차단된 유저</h2>
+<table class="x_table x_table-striped x_table-hover">
+<colgroup><col width="120">
+</colgroup><tbody><tr>
+<th scope="col" class="nowr">닉네임</th>
+<td><a href="#popup_menu_area" class="member_{$data->target_member_srl}" onclick="return false">{$data->target_nick_name}</a>
+</td>
+</tr>
+<tr>
+	<th scope="col" class="nowr">해제 날짜</th>
+	<td><!--@if($data->expdate)-->{zdate($data->expdate, 'Y-m-d H:i:s')} (<!--@if($data->day > 0)-->{$data->day}일<!--@end--><!--@if($data->hour > 0)--><!--@if($data->day > 0)--> <!--@end-->{$data->hour}시간<!--@end-->)<!--@else-->무기한 차단<!--@end--></td>
+</tr>
+<tr>
+	<th scope="col" class="nowr">IP차단 사용</th>
+	<td><!--@if($data->use_ipban === "Y")-->사용중<!--@else-->사용 안함<!--@end--></td>
+</tr>
+<tr>
+	<th scope="col" class="nowr">차단 사유</th>
+	<td>{@
+	$comment = str_replace("\r", '<BR>', $data->comment);
+	$comment = str_replace("\n", "", $comment);
+}
+
+{$comment}</td>
+</tr>
+</tbody>
+</table>
+<form action="./" method="post"><input type="hidden" name="error_return_url" value="/"><input type="hidden" name="mid" value="">
+<input type="hidden" name="module" value="userblock">
+<input type="hidden" name="act" value="procUserblockAdminBanDelete">
+<input type="hidden" type="number" name="member_srl" value="{$data->target_member_srl}">
+<input type="hidden" type="number" name="mid" value="userblock" cond="$mid === 'userblock'">
+<div class="x_pull-left"><button class="x_btn" type="button" onclick="history.go(-1)">목록</button></div>
+<div class="x_pull-right">
+<button type="submit" name="is_all" class="x_btn" value="false">삭제</button>
+</div>
+</form>
+<include target="_bottom.html" />

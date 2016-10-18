@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lang>
+	<item name="userblock">
+		<value xml:lang="ko"><![CDATA[유저 차단]]></value>
+	</item>
+	<item name="userblock_help">
+		<value xml:lang="ko"><![CDATA[회원들 활동관리에 보조적인 역할을 합니다]]></value>
+	</item>
+
+	<item name="userblock_design">
+		<value xml:lang="ko"><![CDATA[디자인]]></value>
+	</item>
+	<item name="userblock_config">
+		<value xml:lang="ko"><![CDATA[설정]]></value>
+	</item>
+	<item name="userblock_doc">
+		<value xml:lang="ko"><![CDATA[문서]]></value>
+	</item>
+	<item name="userblock_cmt">
+		<value xml:lang="ko"><![CDATA[댓글]]></value>
+	</item>
+	<item name="userblock_signup">
+		<value xml:lang="ko"><![CDATA[회원가입]]></value>
+	</item>
+	<item name="userblock_other">
+		<value xml:lang="ko"><![CDATA[기타]]></value>
+	</item>
+	<item name="userblock_use">
+		<value xml:lang="ko"><![CDATA[사용]]></value>
+	</item>
+	<item name="userblock_not_use">
+		<value xml:lang="ko"><![CDATA[사용안함]]></value>
+	</item>
+	<item name="userblock_default">
+		<value xml:lang="ko"><![CDATA[기본값]]></value>
+	</item>
+	<item name="userblock_board">
+		<value xml:lang="ko"><![CDATA[게시판]]></value>
+	</item>
+	<item name="userblock_config_status">
+		<value xml:lang="ko"><![CDATA[설정 상태]]></value>
+	</item>
+	<item name="userblock_user_set">
+		<value xml:lang="ko"><![CDATA[사용자 정의]]></value>
+	</item>
+	<item name="userblock_grant_info">
+		<value xml:lang="ko"><![CDATA[권한 관리]]></value>
+	</item>
+	<item name="userblock_manager">
+		<value xml:lang="ko"><![CDATA[차단 관리]]></value>
+	</item>
+	<item name="userblock_banned">
+		<value xml:lang="ko"><![CDATA[차단중]]></value>
+	</item>
+	<item name="userblock_not_banned">
+		<value xml:lang="ko"><![CDATA[활동]]></value>
+	</item>
+
+	<item name="cmd_userblock_management">
+		<value xml:lang="ko"><![CDATA[유저 차단]]></value>
+	</item>
+	<item name="cmd_userblock_doc_manager">
+		<value xml:lang="ko"><![CDATA[이 게시글에 대해 차단]]></value>
+	</item>
+	<item name="cmd_userblock_file_manager">
+		<value xml:lang="ko"><![CDATA[게시글 파일에 대해 차단]]></value>
+	</item>
+	<item name="cmd_userblock_cmt_manager">
+		<value xml:lang="ko"><![CDATA[이 댓글에 대해 차단]]></value>
+	</item>
+	<item name="cmd_userblock">
+		<value xml:lang="ko"><![CDATA[차단]]></value>
+	</item>
+	<item name="cmd_user_do">
+		<value xml:lang="ko"><![CDATA[활동]]></value>
+	</item>
+	<item name="cmd_expdate">
+		<value xml:lang="ko"><![CDATA[만료일]]></value>
+	</item>
+	<item name="cmd_blocklist">
+		<value xml:lang="ko"><![CDATA[차단 회원]]></value>
+	</item>
+	<item name="cmd_blocklist_not_exist">
+		<value xml:lang="ko"><![CDATA[차단이력이 존재하지 않습니다.]]></value>
+	</item>
+	<item name="cmd_log">
+		<value xml:lang="ko"><![CDATA[기록]]></value>
+	</item>
+	<item name="cmd_module_manager">
+		<value xml:lang="ko"><![CDATA[모듈 관리자]]></value>
+	</item>
+	<item name="cmd_admin_id">
+		<value xml:lang="ko"><![CDATA[관리자 ID]]></value>
+	</item>
+	<item name="cmd_admin_id_help">
+		<value xml:lang="ko"><![CDATA[기존 최고관리자를 제외한 추가로 관리자를 지정합니다.]]></value>
+	</item>
+
+	<item name="cmd_use_module">
+		<value xml:lang="ko"><![CDATA[모듈 사용]]></value>
+	</item>
+	<item name="cmd_use_module_all_help">
+		<value xml:lang="ko"><![CDATA[유저 차단 모듈을 사용합니다.]]></value>
+	</item>
+	<item name="cmd_use_module_help">
+		<value xml:lang="ko"><![CDATA[해당 모듈에서만 유저 차단 모듈을 사용합니다.]]></value>
+	</item>
+	<item name="cmd_ban_priority">
+		<value xml:lang="ko"><![CDATA[아이피 차단 우선]]></value>
+	</item>
+	<item name="cmd_ban_priority_help">
+		<value xml:lang="ko"><![CDATA[차단되지 않은 유저가 차단된 아이피로 활동할 경우 활동을 막습니다.<BR>단, 비회원의 경우엔 설정 유무와는 상관없이 차단합니다.]]></value>
+	</item>
+	<item name="cmd_ban_member_auto">
+		<value xml:lang="ko"><![CDATA[차단된 아이피 자동차단]]></value>
+	</item>
+	<item name="cmd_ban_member_auto_help">
+		<value xml:lang="ko"><![CDATA[정상유저가 차단된 아이피로 로그인시 해당 유저도 차단DB에 자동등록합니다.)]]></value>
+	</item>
+	<item name="cmd_ban_member_time">
+		<value xml:lang="ko"><![CDATA[기본 차단시간 설정]]></value>
+	</item>
+	<item name="cmd_ban_member_time_help">
+		<value xml:lang="ko"><![CDATA[기본 차단시간을 설정합니다. 두 값이 비어있거나 0일시 영구차단으로 설정됩니다.<BR>차단일은 0~9999, 차단시간은 0~24 사이로 값을 설정해주세요.]]></value>
+	</item>
+	<item name="cmd_ban_day">
+		<value xml:lang="ko"><![CDATA[일]]></value>
+	</item>
+	<item name="cmd_ban_hour">
+		<value xml:lang="ko"><![CDATA[시간]]></value>
+	</item>
+	<item name="cmd_board_info">
+		<value xml:lang="ko"><![CDATA[게시판 정보]]></value>
+	</item>
+	<item name="cmd_board_name">
+		<value xml:lang="ko"><![CDATA[게시판 이름]]></value>
+	</item>
+	<item name="cmd_board_regdate">
+		<value xml:lang="ko"><![CDATA[게시판 등록일]]></value>
+	</item>
+	<item name="cmd_is_banned">
+		<value xml:lang="ko"><![CDATA[상태]]></value>
+	</item>
+
+	<item name="cmd_trash_reason">
+		<value xml:lang="ko"><![CDATA[휴지통 이동 사유]]></value>
+	</item>
+	<item name="cmd_trash_reason_help">
+		<value xml:lang="ko"><![CDATA[차단후 휴지통으로 이동할때 표시할 사유를 입력합니다.]]></value>
+	</item>
+
+
+
+	<item name="cmd_userblock_other">
+		<value xml:lang="ko"><![CDATA[그 외 %d명]]></value>
+	</item>
+
+
+	<item name="cmd_ban_doc_write">
+		<value xml:lang="ko"><![CDATA[게시글 작성 금지]]></value>
+	</item>
+	<item name="cmd_ban_doc_write_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 게시글 작성을 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_doc_modify">
+		<value xml:lang="ko"><![CDATA[게시글 수정 금지]]></value>
+	</item>
+	<item name="cmd_ban_doc_modify_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 게시글 수정을 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_doc_delete">
+		<value xml:lang="ko"><![CDATA[게시글 삭제 금지]]></value>
+	</item>
+	<item name="cmd_ban_doc_delete_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 게시글 삭제를 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_doc_voteup">
+		<value xml:lang="ko"><![CDATA[게시글 추천 금지]]></value>
+	</item>
+	<item name="cmd_ban_doc_voteup_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 게시글 추천을 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_doc_votedown">
+		<value xml:lang="ko"><![CDATA[게시글 비추천 금지]]></value>
+	</item>
+	<item name="cmd_ban_doc_votedown_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 게시글 비추천을 금지합니다.]]></value>
+	</item>
+
+	<item name="cmd_ban_cmt_write">
+		<value xml:lang="ko"><![CDATA[댓글 작성 금지]]></value>
+	</item>
+	<item name="cmd_ban_cmt_write_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 댓글작성을 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_cmt_modify">
+		<value xml:lang="ko"><![CDATA[댓글 수정 금지]]></value>
+	</item>
+	<item name="cmd_ban_cmt_modify_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 댓글 수정을 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_cmt_delete">
+		<value xml:lang="ko"><![CDATA[댓글 삭제 금지]]></value>
+	</item>
+	<item name="cmd_ban_cmt_delete_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 댓글 삭제를 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_cmt_voteup">
+		<value xml:lang="ko"><![CDATA[댓글 추천 금지]]></value>
+	</item>
+	<item name="cmd_ban_cmt_voteup_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 댓글 추천을 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_cmt_votedown">
+		<value xml:lang="ko"><![CDATA[댓글 비추천 금지]]></value>
+	</item>
+	<item name="cmd_ban_cmt_votedown_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 댓글 비추천을 금지합니다.]]></value>
+	</item>
+	<item name="cmd_ban_notice">
+		<value xml:lang="ko"><![CDATA[차단 알림 형식]]></value>
+	</item>
+	<item name="cmd_ban_notice_help">
+		<value xml:lang="ko"><![CDATA[차단된 유저에게 알릴 공지 형식을 입력합니다. <BR>[type] : 차단 형식(기타 혹은 댓글, 문서 작성)<BR>[comment]: 차단 사유<BR>[time]: 차단시간<BR>[expdate]: 만료시각]]></value>
+	</item>
+	<item name="cmd_file">
+		<value xml:lang="ko"><![CDATA[파일]]></value>
+	</item>
+	<item name="cmd_file_attach">
+		<value xml:lang="ko"><![CDATA[파일첨부]]></value>
+	</item>
+	<item name="cmd_ban_file_download">
+		<value xml:lang="ko"><![CDATA[다운로드 금지]]></value>
+	</item>
+	<item name="cmd_ban_file_download_help">
+		<value xml:lang="ko"><![CDATA[차단된 회원은 다운로드를 금지합니다.]]></value>
+	</item>
+
+	<item name="cmd_ban_member_delete">
+		<value xml:lang="ko"><![CDATA[회원탈퇴시 상태 삭제]]></value>
+	</item>
+	<item name="cmd_ban_member_delete_help">
+		<value xml:lang="ko"><![CDATA[IP주소도 차단된 회원이 회원탈퇴를 할 경우 IP차단상태를 해제합니다]]></value>
+	</item>
+	<item name="cmd_ban_sign_up">
+		<value xml:lang="ko"><![CDATA[차단된 아이피 회원가입 불가]]></value>
+	</item>
+	<item name="cmd_ban_sign_up_help">
+		<value xml:lang="ko"><![CDATA[차단된 아이피로 회원가입을 시도할 경우 회원가입을 막습니다.]]></value>
+	</item>
+	<item name="cmd_ban_use_javascript">
+		<value xml:lang="ko"><![CDATA[자바스크립트 사용]]></value>
+	</item>
+	<item name="cmd_ban_use_javascript_help">
+		<value xml:lang="ko"><![CDATA[글쓰기, 댓글 수정과 같이 페이지 이동 대신 자바스크립트 알림을 표시합니다.<BR>하이퍼링크 주소의 act 값으로 판별하여 스킨에 따라 호환이 되지 않을 수 있습니다.]]></value>
+	</item>
+
+
+	<item name="cmd_ban_block_exception">
+		<value xml:lang="ko"><![CDATA[차단 제외 모듈]]></value>
+	</item>
+	<item name="cmd_ban_block_exception_help">
+		<value xml:lang="ko"><![CDATA[선택된 모듈에선 활동차단을 제외합니다.]]></value>
+	</item>
+	<item name="cmd_enter_comment">
+		<value xml:lang="ko"><![CDATA[500자 이내의 차단사유를 입력해주세요.]]></value>
+	</item>
+	<item name="cmd_doc_write">
+		<value xml:lang="ko"><![CDATA[게시글 작성]]></value>
+	</item>
+	<item name="cmd_cmt_write">
+		<value xml:lang="ko"><![CDATA[댓글 작성]]></value>
+	</item>
+	<item name="cmd_doc_voteup">
+		<value xml:lang="ko"><![CDATA[게시글 추천]]></value>
+	</item>
+	<item name="cmd_doc_votedown">
+		<value xml:lang="ko"><![CDATA[게시글 비추천]]></value>
+	</item>
+	<item name="cmd_exception">
+		<value xml:lang="ko"><![CDATA[예외]]></value>
+	</item>
+	<item name="cmd_status">
+		<value xml:lang="ko"><![CDATA[상태]]></value>
+	</item>
+	<item name="cmd_type">
+		<value xml:lang="ko"><![CDATA[형식]]></value>
+	</item>
+	<item name="cmd_member_srl">
+		<value xml:lang="ko"><![CDATA[회원 번호]]></value>
+	</item>
+	<item name="cmd_document_srl">
+		<value xml:lang="ko"><![CDATA[문서 번호]]></value>
+	</item>
+	<item name="cmd_document_title">
+		<value xml:lang="ko"><![CDATA[문서 제목]]></value>
+	</item>
+	<item name="cmd_module_name">
+		<value xml:lang="ko"><![CDATA[모듈 이름]]></value>
+	</item>
+	<item name="cmd_ip_addr">
+		<value xml:lang="ko"><![CDATA[IP주소]]></value>
+	</item>
+	<item name="cmd_ban_ip">
+		<value xml:lang="ko"><![CDATA[차단 IP]]></value>
+	</item>
+	<item name="cmd_use_ipban">
+		<value xml:lang="ko"><![CDATA[IP차단]]></value>
+	</item>
+	<item name="cmd_ipban_status">
+		<value xml:lang="ko"><![CDATA[IP차단 상태]]></value>
+	</item>
+	<item name="cmd_comment">
+		<value xml:lang="ko"><![CDATA[사유]]></value>
+	</item>
+	<item name="cmd_guest">
+		<value xml:lang="ko"><![CDATA[비회원]]></value>
+	</item>
+
+	<item name="msg_is_not_administrator">
+		<value xml:lang="ko"><![CDATA[관리자만 접근 가능합니다.]]></value>
+	</item>
+	<item name="success_banned">
+		<value xml:lang="ko"><![CDATA[차단하였습니다.]]></value>
+	</item>
+	<item name="success_delete_banned">
+		<value xml:lang="ko"><![CDATA[해제하였습니다.]]></value>
+	</item>
+</lang>

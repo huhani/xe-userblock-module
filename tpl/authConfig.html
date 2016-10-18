@@ -1,0 +1,17 @@
+<include target="_header.html" />
+
+<!--TODO-->
+<div cond="$XE_VALIDATOR_MESSAGE && $XE_VALIDATOR_ID == ''" class="message {$XE_VALIDATOR_MESSAGE_TYPE}">
+	<p>{$XE_VALIDATOR_MESSAGE}</p>
+</div>
+
+{$grant_content}
+
+
+<script>
+jQuery(function($){
+	//$('.x .section').eq(1).remove(); // 그룹관련기능 미지원.
+	$('label[for=access_default]').parent().remove();
+});
+</script>
+<include target="_bottom.html" />

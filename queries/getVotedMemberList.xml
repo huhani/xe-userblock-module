@@ -1,0 +1,14 @@
+<query id="getVotedMemberList" action="select">
+    <tables>
+        <table name="document_voted_log" />
+    </tables>
+    <columns>
+        <column name="*" />
+    </columns>
+    <conditions>
+        <condition operation="equal" column="document_srl" var="document_srl" filter="number" notnull="notnull" />
+    </conditions>
+    <navigation>
+        <index var="sort_index" default="regdate" order="desc" />
+    </navigation>
+</query>

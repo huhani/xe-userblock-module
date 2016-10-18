@@ -1,0 +1,195 @@
+<!--// HEADER -->
+{Context::setBrowserTitle($lang->cmd_userblock_management)}
+
+<!--// BODY -->
+<div class="x_page-header">
+	<h1>{$lang->cmd_userblock_management}</h1>
+</div>
+
+<form class="x_form-horizontal" action="{getUrl('')}" method="post">
+	<input type="hidden" name="mid" value="userblock" />
+	<input type="hidden" name="module" value="userblock" />
+	<input type="hidden" name="act" value="procUserblockAdminBanDocument" />
+	<input type="hidden" type="number" name="document_srl" value="{$document->get('document_srl')}" />
+	<input type="hidden" name="to_trash" value="N" />
+	<input type="hidden" name="xe_validator_id" value="modules/userblock/tpl/documentManagePopup/1" />
+
+	<table class="x_table x_table-striped x_table-hover">
+		<thead>
+			<tr>
+				<th>{$lang->cmd_module_name}</th>
+				<th>{$lang->cmd_document_title}</th>
+				<th>{$lang->nick_name}</th>
+				<th>{$lang->cmd_ip_addr}</th>
+				<th>{$lang->cmd_status}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$module_info->mid}</td>
+				<td>{cut_str($document->get('title'), 50)}</td>
+				<td><!--@if($document->get('member_srl') > 0)--><!--@if($member_is_deleted == 'true')-->{$document->get('nick_name')}(탈퇴한 회원)<!--@else-->{$document->get('nick_name')}<!--@end--><!--@else-->{$document->get('nick_name')}(비회원)<!--@end--></td>
+				<td>{$document->get('ipaddress')}<!--@if($member_info->is_ip_banned)-->(차단중)<!--@end--></td>
+				<td><!--@if($member_info->is_banned)-->{$lang->userblock_banned} (<!--@if($member_info->day == 0 && $member_info->hour == 0)-->무기한 차단<!--@else-->{$member_info->day}{$lang->cmd_ban_day} {$member_info->hour}{$lang->cmd_ban_hour}<!--@end-->)<!--@else-->{$lang->userblock_not_banned}<!--@end--></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="x_control-group">
+		<label class="x_control-label" for="comment">차단사유</label>
+		<div class="x_controls">
+		<textarea name="comment" id="comment" rows="4" cols="50" placeholder="{$lang->cmd_enter_comment}" style="vertical-align: top; margin-left: 0px; margin-right: 0px; width: 98%;">{$document->get('title')}</textarea>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="block_type">차단유형</label>
+		<div class="x_controls">
+			<select name="type" id="block_type" disabled="disabled">
+				<option value="0">기타</option>
+				<option value="1" selected="selected">게시글 작성</option>
+				<option value="2">댓글 작성</option>
+			</select>
+		</div>
+	</div>
+
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="vote_type">추천 차단</label>
+		<div class="x_controls">
+			<select name="vote_type" id="vote_type">
+				<option value="0" selected="selected">차단 안 함</option>
+				<option value="1">추천한 유저</option>
+				<option value="2">비추천한 유저</option>
+				<option value="3">모두</option>
+			 </select>
+			<a href="#ban_vote_type_help" class="x_icon-question-sign" data-toggle="#ban_vote_type_help">{$lang->help}</a>
+			<p id="ban_vote_type_help" class="x_help-block" hidden="hidden">해당 게시글에 추천, 비추천한 유저들에 대해 추가 처리를 선택합니다</p>
+		</div>
+	</div>
+	<div class="x_control-group vote" style="display: none;">
+		<label class="x_control-label" for="vote_comment">추천 차단사유</label>
+		<div class="x_controls">
+		<textarea name="vote_comment" id="vote_comment" rows="4" cols="50" placeholder="EX: 추천조작" style="vertical-align: top; margin-left: 0px; margin-right: 0px; width: 98%;"></textarea>
+		</div>
+	</div>
+	<div class="x_control-group vote" style="display: none;">
+		<label class="x_control-label" for="until">추천IP 차단</label>
+		<div class="x_controls">
+				<label class="x_inline" for="ban_vote_use_ipban_use">
+				<input type="radio" id="ban_vote_use_ipban_use" name="vote_use_ipban" value="Y" checked="checked">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_vote_use_ipban_not_use">
+				<input type="radio" id="ban_vote_use_ipban_not_use" name="vote_use_ipban" value="N">{$lang->userblock_not_use}</label>
+				<a href="#ban_vote_use_ipban_help" class="x_icon-question-sign" data-toggle="#ban_vote_use_ipban_help">{$lang->help}</a>
+				<p id="ban_vote_use_ipban_help" class="x_help-block" hidden="hidden">해당 게시글을 (비)추천 IP를 차단합니다.<BR>이미 차단된 IP인 경우엔 입력한 정보로 덮어씌웁니다</p>
+		</div>
+	</div>
+	<div class="x_control-group vote" style="display: none;">
+		<label class="x_control-label" for="until">추천유저 차단일</label>
+		<div class="x_controls">
+			<label class="x_inline" for="vote_ban_time_day">
+			<input type="number" value="{$config->ban_day}" name="vote_day" id="vote_ban_time_day" style="text-align:right"> {$lang->cmd_ban_day}</label>
+
+			<label class="x_inline" for="vote_ban_time_hour">
+			<input type="number" value="{$config->ban_hour}" name="vote_hour" id="vote_ban_time_hour" style="text-align:right"> {$lang->cmd_ban_hour}</label>
+			<a href="#ban_member_vote_time_help" class="x_icon-question-sign" data-toggle="#ban_member_vote_time_help">{$lang->help}</a>
+			<p id="ban_member_vote_time_help" class="x_help-block" hidden="hidden">차단기한을 설정합니다.  두 값을 비워두거나 0일 경우 무기한으로 설정됩니다.<BR>이미 차단된 유저는 새로 입력한 값으로 업데이트 됩니다.</p>
+		</div>
+	</div>
+
+
+
+
+	<div class="x_control-group">
+		<label class="x_control-label" for="until">IP 차단</label>
+		<div class="x_controls">
+				<label class="x_inline" for="ban_document_ip_use">
+				<input type="radio" id="ban_document_ip_use" name="ban_ip" value="Y" checked="checked" disabled="disabled"|cond="$document->get('member_srl') == 0">{$lang->userblock_use}</label>
+
+				<label class="x_inline" for="ban_document_ip_not_use">
+				<input type="radio" id="ban_document_ip_not_use" name="ban_ip" value="N" disabled="disabled"|cond="$document->get('member_srl') == 0">{$lang->userblock_not_use}</label>
+			<a href="#ban_document_ip_help" class="x_icon-question-sign" data-toggle="#ban_document_ip_help">{$lang->help}</a>
+			<p id="ban_document_ip_help" class="x_help-block" hidden="hidden">해당 게시글의 IP를 차단합니다.<BR>이미 차단된 IP인 경우엔 입력한 정보로 덮어씌웁니다</p>
+		</div>
+	</div>
+	<div class="x_control-group">
+		<label class="x_control-label" for="until">차단일</label>
+		<div class="x_controls">
+			<label class="x_inline" for="ban_time_day">
+			<input type="number" value="{$config->ban_day}" name="day" id="ban_time_day" style="text-align:right"> {$lang->cmd_ban_day}</label>
+
+			<label class="x_inline" for="ban_time_hour">
+			<input type="number" value="{$config->ban_hour}" name="hour" id="ban_time_hour" style="text-align:right"> {$lang->cmd_ban_hour}</label>
+			<a href="#ban_member_time_help" class="x_icon-question-sign" data-toggle="#ban_member_time_help">{$lang->help}</a>
+			<p id="ban_member_time_help" class="x_help-block" hidden="hidden" style="display: block;">차단기한을 설정합니다.  두 값을 비워두거나 0일 경우 무기한으로 설정됩니다.<BR>이미 차단된 유저는 새로 입력한 값으로 업데이트 됩니다.</p>
+		</div>
+	</div>
+	<div class="btnArea">
+		<div class="x_pull-left">
+			<input type="submit" class="x_btn toTrash" value="차단후 휴지통으로 이동" />
+		</div>
+		<div class="x_pull-right">
+			<input type="submit" class="x_btn x_btn-primary" value="{$lang->cmd_userblock}" />
+		</div>
+	</div>
+</form>
+<script>
+jQuery(function($){
+	$(".x_form-horizontal input[type=submit]").on("click", function (e) {
+		var comment = $(".x_form-horizontal #comment").val();
+		var vote_type = $("#vote_type option:selected").val();
+		if(comment.length < 1 || comment.length == null) return alert("내용 값은 필수입니다."), false;
+		else if(comment.length > 500) return alert("500자 이하로만 입력해주세요. ("+comment.length+"자)"), false;
+
+		var day = $('#ban_time_day').val();
+		var hour = $('#ban_time_hour').val();
+		if(day){
+			if(!day.match(/^\d+$/)) return alert('차단시간 설정 값 형식이 올바르지 않습니다.'), false;
+		}
+		if(hour){
+			if(!hour.match(/^\d+$/)) return alert('차단시간 설정 값 형식이 올바르지 않습니다.'), false;
+		}
+		if(hour > 24) return alert('차단시간 값을 24 이하로 설정하여주세요.'), false;
+		if(day > 9999) return alert('차단일 값이 너무 큽니다.'), false;
+
+		if(vote_type != "0"){
+			var vote_comment = $(".x_form-horizontal #vote_comment").val();
+			if(vote_comment.length < 1 || vote_comment.length == null) return alert("추천 차단 내용 값은 필수입니다."), false;
+			else if(vote_comment.length > 500) return alert("추천 차단 내용을 500자 이하로만 입력해주세요. ("+vote_comment.length+"자)"), false;
+
+			var vote_day = $('input[name=vote_day]').val();
+			var vote_hour = $('input[name=vote_hour]').val();
+			if(vote_day){
+				if(!vote_day.match(/^\d+$/)) return alert('추천 차단시간 설정 값 형식이 올바르지 않습니다.'), false;
+			}
+			if(vote_hour){
+				if(!hour.match(/^\d+$/)) return alert('추천 차단시간 설정 값 형식이 올바르지 않습니다.'), false;
+			}
+			if(vote_hour > 24) return alert('추천 차단시간 값을 24 이하로 설정하여주세요.'), false;
+			if(vote_day > 9999) return alert('추천 차단일 값이 너무 큽니다.'), false;
+		}
+
+		return true;
+	});
+
+	$(".toTrash").on("click", function (e) {
+		$(".x_form-horizontal input[name=to_trash]").val("Y");
+
+		return true;
+	});
+
+	$("#vote_type").change(function(){
+		var type = $("#vote_type option:selected").val();
+		switch(type){
+			case '0':
+				$(".vote").hide();
+			break;
+			case '1':
+			case '2':
+			case '3':
+				$(".vote").show();
+			break;
+		}
+	});
+
+});
+</script>
