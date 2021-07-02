@@ -83,7 +83,7 @@ class userblockAdminController extends userblock
 		unset($get_config->ruleset);
 		unset($get_config->module_srl);
 
-
+		$config = new stdClass();
 		$config->{$module_srl} = $get_config;
 		$output = $oModuleController->updateModuleConfig('userblock', $config);
 		if (!$output->toBool())
@@ -198,6 +198,7 @@ class userblockAdminController extends userblock
 		$nick_name = $logged_info->nick_name;
 		$target_member_srl = Context::get('member_srl');
 		if(!$target_member_srl || $target_member_srl === 0) return $this->stop('msg_invalid_request');
+		$args = new stdClass();
 		$args->member_srl = $member_srl;
 		$args->nick_name = $nick_name;
 		$args->ipaddress = $_SERVER['REMOTE_ADDR'];
@@ -225,8 +226,6 @@ class userblockAdminController extends userblock
 	{
 
 		$logged_info = Context::get('logged_info');
-		$member_srl = $logged_info->member_srl;
-		$nick_name = $logged_info->nick_name;
 		$id = Context::get('id');
 
 		$args = new stdClass();
@@ -247,7 +246,7 @@ class userblockAdminController extends userblock
 	function procUserblockAdminArrangeLog(){
 		$args = new stdClass();
 		$args->expdate = date("YmdHis");
-		$output = executeQueryArray('userblock.deleteExpdateLog',$args);
+		executeQuery('userblock.deleteExpdateLog',$args);
 
 		Context::set('message', 'success_deleted');
 	}

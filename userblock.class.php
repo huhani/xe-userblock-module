@@ -86,7 +86,7 @@ class userblock extends ModuleObject
 			$oModuleController->insertTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]);
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function moduleUninstall()
@@ -98,7 +98,7 @@ class userblock extends ModuleObject
 			$oModuleController->deleteTrigger($trigger[0], $trigger[1], $trigger[2], $trigger[3], $trigger[4]);
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function checkUpdate()
@@ -127,7 +127,7 @@ class userblock extends ModuleObject
 			}
 		}
 
-		return new Object();
+		return new BaseObject();
 
 	}
 

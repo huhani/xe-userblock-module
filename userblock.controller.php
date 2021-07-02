@@ -22,14 +22,14 @@ class userblockController extends userblock
 		$output = executeQuery('userblock.deleteBlockMember', $args);
 
 		$logged_info = Context::get('logged_info');
-		if($logged_info->is_admin == 'Y') return new Object();
+		if($logged_info->is_admin == 'Y') return new BaseObject();
 
 		$oUserblockModel = getModel('userblock');
 
 		$config = $oUserblockModel->getConfig();
 
 		if($config->use === "N" || $config->member_delete === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 
 			$args1 = new stdClass();
@@ -40,7 +40,7 @@ class userblockController extends userblock
 
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
@@ -49,7 +49,7 @@ class userblockController extends userblock
 		$member_srl = Context::get('target_srl');
 		$logged_info = Context::get('logged_info');
 
-		if(!$logged_info) return new Object();
+		if(!$logged_info) return new BaseObject();
 
 		$oModuleModel = getModel('module');
 		$mid_info = $oModuleModel->getModuleInfoByMid("userblock");
@@ -82,13 +82,13 @@ class userblockController extends userblock
 			$oMemberController->addMemberPopupMenu(getUrl('', 'mid', 'userblock', 'act', 'dispUserblockAdminPopup', '_member_srl', $member_srl), 'cmd_userblock_management', '', 'popup');
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function triggerBeforeInsertDocument(&$obj)
 	{
 		$logged_info = Context::get('logged_info');
-		if($logged_info->is_admin == 'Y') return new Object();
+		if($logged_info->is_admin == 'Y') return new BaseObject();
 
 		$oUserblockModel = getModel('userblock');
 
@@ -101,18 +101,18 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->doc_write === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
@@ -129,46 +129,49 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->doc_modify === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function triggerBeforeDeleteDocument(&$obj)
 	{
-		if(!$obj->module_srl) return new Object();	//admin모듈에서 삭제할때 에러남
-		$oUserblockModel = getModel('userblock');
+	    $module_info = Context::get('module_info');
+        $module_srl = $module_info->module_srl;
+	    if($module_info->module !== "board" || !$module_srl) {
+            return new BaseObject();
+        }
 
+		$oUserblockModel = getModel('userblock');
 		$config = $oUserblockModel->getConfig();
 
-		if($obj->module_srl && $config->{$obj->module_srl}) {
-			$set = $config->{$obj->module_srl};
+		if(isset($config->{$module_srl}) && $config->{$module_srl}) {
+			$set = $config->{$module_srl};
 		} else {
 			$set = $config->default;
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->doc_delete === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
-
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1, sprintf('%s',$message));
 			}
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function triggerBeforeInsertComment(&$obj)
@@ -184,18 +187,18 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->cmt_write === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function triggerBeforeUpdateComment(&$obj)
@@ -211,18 +214,18 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->cmt_modify === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
@@ -239,30 +242,30 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->cmt_delete === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
 	function triggerGetCommentMenu(&$menu_list) {
 
 		if(!Context::get('is_logged')) {
-			return new Object();
+			return new BaseObject();
 		}
 
 		$logged_info = Context::get('logged_info');
 		$comment_srl = Context::get('target_srl');
-		if(!$logged_info || !$comment_srl) return new Object();
+		if(!$logged_info || !$comment_srl) return new BaseObject();
 
 		$oModuleModel = getModel('module');
 		$mid_info = $oModuleModel->getModuleInfoByMid("userblock");
@@ -287,7 +290,7 @@ class userblockController extends userblock
 			}
 		}
 
-		if(!$is_module_admin) return new Object();
+		if(!$is_module_admin) return new BaseObject();
 
 		$oCommentModel = getModel('comment');
 		$columnList = array('comment_srl', 'module_srl', 'member_srl', 'ipaddress');
@@ -302,20 +305,20 @@ class userblockController extends userblock
 
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
 	function triggerGetDocumentMenu(&$menu_list)	{
 
 		if(!Context::get('is_logged')) {
-			return new Object();
+			return new BaseObject();
 		}
 
 		$logged_info = Context::get('logged_info');
 		$document_srl = Context::get('target_srl');
 
-		if(!$logged_info || !$document_srl) return new Object();
+		if(!$logged_info || !$document_srl) return new BaseObject();
 
 		$oModuleModel = getModel('module');
 		$mid_info = $oModuleModel->getModuleInfoByMid("userblock");
@@ -341,7 +344,7 @@ class userblockController extends userblock
 			}
 		}
 
-		if(!$is_module_admin) return new Object();
+		if(!$is_module_admin) return new BaseObject();
 
 		$oDocumentModel = getModel('document');
 		$columnList = array('document_srl', 'module_srl', 'member_srl', 'ipaddress');
@@ -363,21 +366,21 @@ class userblockController extends userblock
 
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function triggerInsertMember(&$obj)
 	{
 
 		$logged_info = Context::get('logged_info');
-		if($logged_info->is_admin == 'Y') return new Object();
+		if($logged_info->is_admin == 'Y') return new BaseObject();
 
 		$oUserblockModel = getModel('userblock');
 
 		$config = $oUserblockModel->getConfig();
 
 		if($config->use === "N" || $config->member_sign_up === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 
 			$args = new stdClass();
@@ -387,13 +390,13 @@ class userblockController extends userblock
 			$ban_info = $output->data;
 			if(count($output->data)){
 				$message = $this->getBanMessage($config->ban_notice, $ban_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
@@ -402,7 +405,7 @@ class userblockController extends userblock
 
 		//debugPrint($obj);
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
@@ -420,18 +423,18 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->file_download === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function _triggerBeforeDocVoteUp($module_srl){
@@ -447,17 +450,17 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->doc_voteup === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
-		return new Object();
+		return new BaseObject();
 	}
 
 	function _triggerBeforeDocVoteDown($module_srl){
@@ -473,17 +476,17 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->doc_votedown === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
-		return new Object();
+		return new BaseObject();
 	}
 
 
@@ -500,17 +503,17 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->cmt_voteup === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
-		return new Object();
+		return new BaseObject();
 	}
 
 	function _triggerBeforeCmtVoteDown($module_srl){
@@ -526,23 +529,22 @@ class userblockController extends userblock
 		}
 
 		if($config->use === "N" || $set->use_module === "N" || $set->cmt_votedown === "N") {
-			return new Object();
+			return new BaseObject();
 		} else {
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
 
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1,sprintf('%s',$message));
 			}
 	
 		}
-		return new Object();
+		return new BaseObject();
 	}
 
 	function _triggerDispBoardWrite($module_srl){
 
 		$oUserblockModel = getModel('userblock');
-
 		$config = $oUserblockModel->getConfig();
 
 		if($module_srl && $config->{$module_srl}) {
@@ -552,26 +554,27 @@ class userblockController extends userblock
 		}
 
 		$document_srl = Context::get('document_srl');
-		if($config->use === "N" || $set->use_module === "N" || ( (!$document_srl && $set->doc_write === "N") || ($document_srl && $set->doc_modify === "N") )) {
-			return new Object();
+		if($config->use === "N" ||
+            $set->use_module === "N" ||
+            ( (!$document_srl && $set->doc_write === "N") || ($document_srl && $set->doc_modify === "N") )
+        ) {
+			return new BaseObject();
 		} else {
-
 			$member_info = $this->checkMemberBanned(null, null, $config->ip_priority);
 			if($member_info->is_banned){
-
 				$message = $this->getBanMessage($config->ban_notice, $member_info);
-				return new Object(-1,sprintf('%s',$message));
+				return new BaseObject(-1, sprintf('%s',$message));
 			}
 	
 		}
-		return new Object();
+		return new BaseObject();
 	}
 
 
 	function triggerBeforeModuleInit(&$obj){
 
 		if(!Context::get('is_logged')) {
-			return new Object();
+			return new BaseObject();
 		}
 
 		$member_srl = Context::get('target_srl');
@@ -607,11 +610,12 @@ class userblockController extends userblock
 			$oMemberController->addMemberMenu('dispUserblockMemberRedirect', 'userblock_manager');
 		}
 
-		return new Object();
+		return new BaseObject();
 
 	}
 
 	function triggerBeforeModuleProc(&$obj){
+
 		switch($obj->act){
 
 			case "procDocumentVoteUp":
@@ -638,7 +642,7 @@ class userblockController extends userblock
 			break;
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 
@@ -648,7 +652,7 @@ class userblockController extends userblock
 
 		if (Context::getResponseMethod() == 'HTML') {
 			$mid = Context::get('mid');
-			if(!$mid) return new Object();
+			if(!$mid) return new BaseObject();
 			if ($mid){
 				$oModuleModel = getModel('module');
 				$mid_info = $oModuleModel->getModuleInfoByMid($mid);
@@ -668,7 +672,7 @@ class userblockController extends userblock
 			}
 
 			if($config->use === "N" || $config->use_javascript === "N" || $set->use_module === "N") {
-				return new Object();
+				return new BaseObject();
 			} else {
 				$member_info = $this->checkMemberBanned($logged_info->member_srl, null, $config->ip_priority);
 				if($member_info->is_banned){
@@ -686,7 +690,7 @@ class userblockController extends userblock
 			}
 		}
 
-		return new Object();
+		return new BaseObject();
 	}
 
 	function getUserblockInfo($member_srl){
@@ -700,7 +704,7 @@ class userblockController extends userblock
 	}
 
 	function getUserblockAdminGroup($module_info){
-
+	    $module_srl = $module_info->module_srl;
 		if(!$module_srl){
 			$oModuleModel = getModel('module');
 			$module_info = $oModuleModel->getModuleInfoByMid("userblock");
@@ -741,7 +745,7 @@ class userblockController extends userblock
 
 	}
 
-	function checkMemberBanned($member_srl, $ipaddress, $ip_priority){	// 리턴해야할 값 : is_banned, type, comment, day, hour, expdate
+	function checkMemberBanned($member_srl = null, $ipaddress = null, $ip_priority = "N"){	// 리턴해야할 값 : is_banned, type, comment, day, hour, expdate
 
 		$args = new stdClass();
 		$args->is_banned = false;
